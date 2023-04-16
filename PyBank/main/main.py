@@ -1,25 +1,48 @@
 import os
 import csv
 
-print("Financial Analysis")
-print("----------------------------")
 
 csvpath = os.path.join('..', 'Resources','budget_data.csv')
+
 
 with open(csvpath) as csvfile:
     csvreader = csv.reader(csvfile, delimiter=",")
 
     csv_header = next(csvreader)
     #print(f"Header: {csv_header}")
-
-    total=0
-    row_count = 0
+    months_count = 0
+    profit_losses = 0
+    previous_profit_loss = None
+    changes = []
+    dates =[]
+    
+    
     for row in csvreader:
-        row_count += 1
-        total += float(row[1])
+        date = row[0]
+        months_count += 1
+        profit_losses += float(row[1])
+        profit_loss = int(row[1])
+        dates.append(date)
 
-    average = total / row_count
+        if previous_profit_loss is not None:
+            change = profit_loss - previous_profit_loss
+            changes.append(change)
+        
+        previous_profit_loss = profit_loss
 
-print(f"Total Month: {row_count}")
-print(f"Total: $ {total}")
-print(f"Average Change:$- {average}")
+average_change = sum(changes) / len(changes)
+greatest_increase = max(changes)
+greatest_decrease = min(changes)
+
+
+greatest_increase_date = dates[changes.index(greatest_increase)+ 1]
+greatest_decrease_date = dates[changes.index(greatest_decrease)+ 1]
+
+
+print("Financial Analysis")
+print("----------------------------")
+print(f"Total Month: {months_count}")
+print(f"Total: $ {profit_losses}")
+print(f"Average Change: ${average_change:,.2f}")
+print(f"Greatest Increase in Profits: {greatest_increase_date} ({greatest_increase})")
+print(f"Greatest Decrease in Profits: {greatest_decrease_date} ({greatest_decrease})")
