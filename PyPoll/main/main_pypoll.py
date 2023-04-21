@@ -1,13 +1,3 @@
-#Election Results
-#-------------------------
-#Total Votes: 369711
-#-------------------------
-#Charles Casper Stockham: 23.049% (85213)
-#Diana DeGette: 73.812% (272892)
-#Raymon Anthony Doane: 3.139% (11606)
-#-------------------------
-#Winner: Diana DeGette
-#-------------------------
 
 
 import os 
@@ -25,6 +15,7 @@ with open(csvpath) as csvfile:
 	
 	ID_count = 0
 	candidates =[]
+#loop through each row in the CSV file
 
 	for row in csvreader:
 		ID_count += 1
@@ -43,21 +34,35 @@ for candidate_name in candidates:
 
 print(candidate_id_count)
 
+
 greatest_count = max(candidate_id_count.values())
 
+#loop through each candidate and their vote counts
 
 for candidate_name, count in candidate_id_count.items():
 	vote_percentage = round((count/ID_count) *100,3)
 	print (f'{candidate_name} : {vote_percentage}%' )
 
+#check the candidate's votes if more than the current highest vote candidate
 for candidates, count in candidate_id_count.items():
 	if count == greatest_count:
 		print(f'the winner :{candidates}')
 
+# write the results to a text file
+
+file_to_output = os.path.join("..","analysis", "poll_analysis.txt")
+with open(file_to_output, "w") as txt_file:
+
+	txt_file.write(f"total votes is {ID_count}'\n")
 
 
+	for candidate_name, count in candidate_id_count.items():
+		vote_percentage = round((count/ID_count) *100,3)   
+		txt_file.write(f"{candidate_name} : {vote_percentage}%\n")
 
-
+	for candidate, count in candidate_id_count.items():
+		if count == greatest_count:
+			txt_file.write(f"Winner: {candidate}\n")
 
 
 

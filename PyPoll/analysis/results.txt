@@ -1,9 +1,0 @@
-total votes is 369711
-A complete list of candidates who received votes: Charles Casper Stockham
-A complete list of candidates who received votes: Diana DeGette
-A complete list of candidates who received votes: Raymon Anthony Doane
-{'Charles Casper Stockham': 85213, 'Diana DeGette': 272892, 'Raymon Anthony Doane': 11606}
-Charles Casper Stockham : 23.049%
-Diana DeGette : 73.812%
-Raymon Anthony Doane : 3.139%
-the winner :Diana DeGette
